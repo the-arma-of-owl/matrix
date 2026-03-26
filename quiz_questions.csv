@@ -1,0 +1,51 @@
+question_id,module_id,content_id,question_type,difficulty,question_text,correct_option_id,xp,feedback_correct,feedback_wrong
+Q0001,M1,L0001,multiple_choice,1,Aşağıdakilerden hangisi ‘keyfi harcama’ya örnektir?,O00003,10,Doğru! Keyfi harcamalar ertelenebilir.,"Keyfi harcamalar zorunlu olmayan, ertelenebilir harcamalardır."
+Q0002,M1,L0001,true_false,1,"Bütçe yapmak, gelirin tamamını harcamak anlamına gelir.",O00006,10,Doğru! Bütçe; planlama ve kontrol demektir.,Yanlış. Bütçe; geliri planlayıp hedeflere göre yönetmektir.
+Q0003,M1,L0001,multiple_choice,2,Bütçe yönetiminde en sağlıklı ilk adım hangisidir?,O00008,20,Evet! Önce tabloyu görmek gerekir.,Bütçe yönetimi için önce gelir ve zorunlu giderleri görmek gerekir.
+Q0004,M1,L0002,scenario,2,Senaryo: Ay sonunda 300 TL açığın çıkıyor. İlk olarak ne yaparsın?,O00010,20,Harika! Önce farkındalık ve ölçüm.,En iyi ilk adım harcamaları ölçmek ve nerede arttığını görmektir.
+Q0005,M1,L0001,multiple_choice,1,Aşağıdakilerden hangisi ‘ihtiyaç’ harcamasına daha yakındır?,O00015,10,Doğru! Temel gıda çoğunlukla ihtiyaçtır.,İhtiyaç harcamaları günlük yaşam için zorunlu olanlardır.
+Q0006,M1,L0002,multiple_choice,2,Bütçe hedefi koyarken en uygulanabilir yaklaşım hangisidir?,O00017,20,Evet! Ölçülebilir hedef sürdürülebilir olur.,"Hedefin ölçülebilir ve gerçekçi olması, takip etmeyi kolaylaştırır."
+Q0007,M1,L0001,true_false,2,"Harcamaları kategori bazında takip etmek, gereksiz harcamaları fark etmeyi kolaylaştırır.",O00020,20,Kesinlikle! Kategori takibi farkındalık sağlar.,Yanlış. Kategori takibi gereksiz harcamaları görünür kılar.
+Q0008,M1,L0001,scenario,3,Senaryo: Düzenli birikim yapmak istiyorsun. En sağlam yöntem hangisi?,O00022,30,Doğru! Otomatik ve ay başı ayırmak en etkilidir.,"En etkili yöntem, gelir gelir gelmez birikimi otomatik ayırmaktır."
+Q0009,M1,L0002,multiple_choice,1,Bütçede ‘sabit gider’ örneği hangisidir?,O00026,10,Evet! Abonelik genellikle düzenli giderdir.,Sabit giderler genellikle düzenli tekrar eden ödemelerdir.
+Q0010,M1,L0002,true_false,1,Küçük harcamalar (örn. 40 TL) ay sonunda birikerek büyük toplam oluşturabilir.,O00029,10,Doğru! Sıklık toplamı büyütür.,Yanlış. Sık yapılan küçük harcamalar ay sonunda büyür.
+Q0011,M2,L0003,multiple_choice,1,‘Harcamada farkındalık’ için en iyi başlangıç hangisidir?,O00032,10,Doğru! Ölçmeden yönetmek zor.,Farkındalık için önce harcamaları kaydetmek gerekir.
+Q0012,M2,L0003,true_false,1,Abonelikler küçük görünse de toplamda bütçeyi zorlayabilir.,O00034,10,Evet! Abonelikler birikince büyür.,Yanlış. Abonelikler toplamda ciddi gider oluşturabilir.
+Q0013,M2,L0003,multiple_choice,2,Aşağıdakilerden hangisi ‘harcama tuzağı’na örnektir?,O00037,20,Doğru! İndirim tuzağı sık görülür.,İndirim var diye ihtiyaç dışı almak bir harcama tuzağıdır.
+Q0014,M2,L0004,scenario,2,Senaryo: Haftasonu eğlence harcaman artıyor. Ne yaparsın?,O00039,20,Harika! Limit koymak kontrol sağlar.,Haftasonu için limit belirlemek harcama kontrolünü artırır.
+Q0015,M2,L0003,multiple_choice,1,Aşağıdakilerden hangisi ‘keyfi’ harcama sınıfına daha yakındır?,O00044,10,Doğru! Oyun paketi çoğunlukla keyfidir.,Keyfi harcamalar ertelenebilir ve zorunlu değildir.
+Q0016,M2,L0004,true_false,2,‘Tek seferlik büyük harcama’ bütçeyi ‘çok’ zorlayabilir.,O00046,20,Evet! Büyük harcamalar bütçe etkisini yükseltir.,Yanlış. Büyük harcamalar çoğu zaman bütçeyi zorlar.
+Q0017,M2,L0003,multiple_choice,2,En sağlıklı abonelik yönetimi yaklaşımı hangisidir?,O00048,20,Evet! Kullanmadığını iptal etmek tasarruf sağlar.,"En sağlıklısı, kullanılan abonelikleri tutup diğerlerini iptal etmektir."
+Q0018,M2,L0003,scenario,3,Senaryo: Gün içinde sık kahve alıyorsun. İlk mikro hedefin ne olur?,O00051,30,Doğru! Küçük hedef sürdürülebilir.,Mikro hedef küçük ve sürdürülebilir olmalıdır.
+Q0019,M2,L0004,multiple_choice,1,Harcama analizinde ‘kategori’ kullanmanın faydası nedir?,O00055,10,Evet! Kategori analizi görünürlük sağlar.,"Kategori analizi, hangi alanda harcamanın arttığını gösterir."
+Q0020,M2,L0004,true_false,1,"Harcama alışkanlığı değişimi, bir anda ‘tamamen kesmek’ ile daha kolay olur.",O00058,10,Doğru! Kademeli değişim daha sürdürülebilirdir.,"Yanlış. Kademeli, küçük adımlar daha sürdürülebilir değişim sağlar."
+Q0021,M3,L0005,multiple_choice,1,Acil durum fonunun temel amacı nedir?,O00060,10,Doğru! Beklenmedik giderler için yastık sağlar.,"Acil durum fonu, beklenmedik giderlere hazırlık içindir."
+Q0022,M3,L0005,true_false,1,"Birikim için ‘düzenli’ olmak, ‘büyük’ olmaktan daha önemlidir.",O00062,10,Evet! Düzenli alışkanlık kazandırır.,Yanlış. Düzenli birikim alışkanlığı daha etkilidir.
+Q0023,M3,L0005,multiple_choice,2,Hedef belirlerken hangisi daha doğrudur?,O00065,20,Doğru! Ölçülebilir hedef takip edilebilir.,Tutar ve zaman içeren hedefler daha uygulanabilir olur.
+Q0024,M3,L0006,scenario,2,Senaryo: Her ay 300 TL biriktirmek istiyorsun. Ne yaparsın?,O00067,20,Harika! Otomatik birikim süreklilik sağlar.,En sağlam yöntem ay başında otomatik ayırmaktır.
+Q0025,M3,L0005,multiple_choice,1,Aşağıdakilerden hangisi kısa vadeli hedefe örnektir?,O00071,10,Doğru! Kısa vadeli hedef yakın tarihlidir.,Kısa vadeli hedefler daha yakın süreli planlardır.
+Q0026,M3,L0006,true_false,2,Birikimi ‘harcama kalanı’ olarak görmek genellikle sürdürülemez.,O00073,20,Evet! Birikim öncelik olmalı.,Yanlış. Birikim öncelik olursa sürdürülebilir olur.
+Q0027,M3,L0005,multiple_choice,2,Birikimi artırmak için en etkili yöntemlerden biri hangisidir?,O00076,20,Doğru! Mikro görevler davranışı değiştirir.,Mikro tasarruf görevleri küçük ama etkili iyileştirme sağlar.
+Q0028,M3,L0005,scenario,3,Senaryo: Beklenmedik 1.200 TL gider çıktı. En sağlıklı yaklaşım?,O00078,30,Doğru! Acil durum fonu tam bunun içindir.,"Acil durum fonu, beklenmedik giderleri daha az stresle karşılamayı sağlar."
+Q0029,M3,L0006,multiple_choice,1,‘Otomatik birikim’ ne demektir?,O00082,10,Evet! Sistemli ayırmak otomatik birikimdir.,"Otomatik birikim, düzenli aralıklarla planlı ayırmaktır."
+Q0030,M3,L0006,true_false,1,Birikim hedefi koymak motivasyonu artırabilir.,O00084,10,Doğru! Hedef motivasyon sağlar.,Yanlış. Hedef koymak motivasyonu artırabilir.
+Q0031,M4,L0007,multiple_choice,1,Enflasyon neyi ifade eder?,O00086,10,Doğru! Enflasyon fiyatların genel artışıdır.,"Enflasyon, fiyatların genel seviyesinin artmasıdır."
+Q0032,M4,L0007,true_false,1,Enflasyon arttığında aynı parayla daha çok ürün alınır.,O00090,10,Doğru! Enflasyon satın alma gücünü düşürür.,Yanlış. Enflasyon arttığında satın alma gücü düşer.
+Q0033,M4,L0007,multiple_choice,2,Birikimin değerini korumak için genel prensip hangisidir?,O00092,20,Evet! Enflasyonun üzerinde getiri değer korur.,Değeri korumak için getirinin enflasyonun üzerinde olması hedeflenir.
+Q0034,M4,L0008,scenario,2,Senaryo: 1 yıl sonra 1.000 TL ile daha az şey alacağını düşünüyorsun. Bu hangi kavramla ilgilidir?,O00094,20,Doğru! Bu satın alma gücü (enflasyon) etkisidir.,Bu durum enflasyonla ilgilidir.
+Q0035,M4,L0007,multiple_choice,1,Faiz/getiri en basit haliyle neyi anlatır?,O00097,10,Evet! Getiri zamanla artışı ifade eder.,"Getiri, paranın zaman içinde artmasıdır."
+Q0036,M4,L0008,true_false,2,"Bileşik getiri, getirinin de getiri üretmesi demektir.",O00100,20,Doğru! Bileşik etki büyütür.,"Yanlış. Bileşik getiri, getirinin de getiri üretmesidir."
+Q0037,M4,L0007,multiple_choice,2,Aşağıdakilerden hangisi enflasyon karşısında daha risklidir?,O00102,20,Doğru! Değerlendirmeden tutmak satın alma gücünü azaltır.,Uzun süre değerlendirmeden tutmak enflasyon karşısında risklidir.
+Q0038,M4,L0007,scenario,3,Senaryo: 10 yıl birikim yapacaksın. Hangi yaklaşım daha avantajlı olabilir?,O00105,30,Doğru! Düzenlilik ve zaman birikimi büyütür.,Uzun vadede düzenli birikim daha avantajlıdır.
+Q0039,M4,L0008,multiple_choice,1,Satın alma gücü hangi kavramla yakından ilişkilidir?,O00108,10,Evet! Enflasyon satın alma gücünü etkiler.,Satın alma gücü enflasyonla ilgilidir.
+Q0040,M4,L0008,true_false,1,"Enflasyon düşükse, fiyatlar genelde daha yavaş artar.",O00111,10,Doğru! Artış hızı düşüktür.,Yanlış. Enflasyon düşükse fiyat artışları daha yavaştır.
+Q0041,M5,L0009,multiple_choice,1,BES en basit haliyle neyi amaçlar?,O00114,10,Doğru! BES uzun vadeli birikim yaklaşımıdır.,BES’in temel amacı uzun vadeli birikimi desteklemektir.
+Q0042,M5,L0009,true_false,1,Uzun vadede birikimin büyümesinde ‘zaman’ önemli bir etkendir.,O00116,10,Evet! Zaman bileşik etkiyi büyütür.,"Yanlış. Zaman, uzun vadede birikimi büyüten temel etkendir."
+Q0043,M5,L0009,multiple_choice,2,Uzun vadeli birikimde en güçlü etkiyi artıran faktör hangisidir?,O00118,20,Doğru! Zaman ve düzenlilik etkiyi büyütür.,Uzun vadede zaman ve düzenlilik birikimi büyütür.
+Q0044,M5,L0010,scenario,2,Senaryo: 10 yıl boyunca her ay düzenli katkı yapıyorsun. Bu yaklaşımın avantajı nedir?,O00121,20,Harika! Düzenlilik bileşik etkiyi güçlendirir.,"Düzenli katkı, bileşik etkiyle birikimi büyütür."
+Q0045,M5,L0009,multiple_choice,1,Aşağıdakilerden hangisi uzun vadeli hedefe örnektir?,O00125,10,Doğru! Emeklilik uzun vadeli hedeftir.,Uzun vadeli hedefler yıllara yayılan planlardır.
+Q0046,M5,L0010,true_false,2,"BES senaryolarında daha uzun süre, aynı katkı ile daha yüksek birikime yol açabilir.",O00127,20,Evet! Süre uzadıkça birikim artabilir.,Yanlış. Süre uzadıkça aynı katkı daha yüksek birikime yol açabilir.
+Q0047,M5,L0009,multiple_choice,2,Risk profili neyi ifade eder?,O00129,20,Doğru! Risk profili risk iştahını anlatır.,"Risk profili, kişinin risk almaya yaklaşımını ifade eder."
+Q0048,M5,L0009,scenario,3,Senaryo: Aylık 300 TL yerine 200 TL ile başlarsan ama 5 yıl daha erken başlarsan ne olur?,O00132,30,Doğru! Erken başlamak güçlü bir avantajdır.,"Erken başlamak, uzun vadede toplam birikimi artırabilir."
+Q0049,M5,L0010,multiple_choice,1,Birikim kararlarında ‘uzun vade’ yaklaşımı ne sağlar?,O00135,10,Evet! Zaman dalgalanmayı yumuşatabilir.,"Uzun vade, dalgalanmaları zaman içinde dengelemeye yardımcı olabilir."
+Q0050,M5,L0010,true_false,1,Birikim yapmaya başlamak için ‘mükemmel zaman’ı beklemek her zaman en iyisidir.,O00139,10,Doğru! Başlamak çoğu zaman beklemekten iyidir.,"Yanlış. Çoğu durumda erken başlamak, mükemmel zamanı beklemekten iyidir."

@@ -1,0 +1,4 @@
+scenario_id,risk_profile,fund_count,annual_return_min,annual_return_avg,annual_return_max,description
+SCN_LOW,low,6,32.05,43.85,51.38,"Düşük riskli fonların Son 1 Yıl getirilerinden otomatik türetilmiş senaryo. Görece daha istikrarlı birikim yaklaşımı."
+SCN_MEDIUM,medium,14,24.98,41.72,50.06,"Orta riskli fonların Son 1 Yıl getirilerinden otomatik türetilmiş senaryo. Risk ve getiri arasında denge arayan yaklaşım."
+SCN_HIGH,high,10,22.64,35.18,98.62,"Yüksek riskli fonların Son 1 Yıl getirilerinden otomatik türetilmiş senaryo. Dalgalı fakat yüksek getiri potansiyeli olan yaklaşım."

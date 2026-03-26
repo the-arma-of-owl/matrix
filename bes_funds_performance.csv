@@ -1,0 +1,39 @@
+fund_code,fund_name,fund_system,risk_level,annual_return_1y_percent,return_period
+AE1,Birinci Para Piyasası Emeklilik Yatırım Fonu,BES,low,51.38,Son 1 Yıl
+AE2,Borçlanma Araçları Emeklilik Yatırım Fonu,BES,low,32.05,Son 1 Yıl
+AEK,Borçlanma Araçları Grup Emeklilik Yatırım Fonu,BES,low,34.05,Son 1 Yıl
+AVO,Özel Sektör Borçlanma Araçları Emeklilik Yatırım Fonu,BES,low,48.9,Son 1 Yıl
+MZN,Birinci Fon Sepeti Emeklilik Yatırım Fonu,BES,medium,50.06,Son 1 Yıl
+MZL,İkinci Fon Sepeti Emeklilik Yatırım Fonu,BES,medium,47.87,Son 1 Yıl
+MZP,Üçüncü Fon Sepeti Emeklilik Yatırım Fonu,BES,medium,40.65,Son 1 Yıl
+AEI,Katkı Emeklilik Yatırım Fonu,BES,medium,24.98,Son 1 Yıl
+AVN,Standart Emeklilik Yatırım Fonu,BES,medium,30.52,Son 1 Yıl
+AVD,Karma Emeklilik Yatırım Fonu,BES,medium,48.12,Son 1 Yıl
+AE3,Dinamik Değişken Emeklilik Yatırım Fonu,BES,medium,35.76,Son 1 Yıl
+AVG,Dış Borçlanma Araçları Emeklilik Yatırım Fonu,BES,high,29.27,Son 1 Yıl
+AVB,Kamu Dış Borçlanma Araçları (ABD Doları 5-15 Yıl Vadeli) Emeklilik Yatırım Fonu,BES,high,30.85,Son 1 Yıl
+AVR,Teknoloji Sektörü Yabancı Değişken Emeklilik Yatırım Fonu,BES,high,48.54,Son 1 Yıl
+AEH,Hisse Senedi Emeklilik Yatırım Fonu,BES,high,22.64,Son 1 Yıl
+AEB,Hisse Senedi Grup Emeklilik Yatırım Fonu,BES,high,25.26,Son 1 Yıl
+GFH,Sürdürülebilirlik Hisse Senedi Emeklilik Yatırım Fonu,BES,high,23.8,Son 1 Yıl
+TSZ,Taşınmaz ve İnşaat Sektörü Fonu,BES,medium,,Son 1 Yıl
+ENE,Enerji Sektörü Fonu,BES,medium,,Son 1 Yıl
+TVC,Tarım ve Gıda Sektörü Fonu,BES,medium,,Son 1 Yıl
+TVH,Teknoloji Şirketleri Hisse Senedi Fonu,BES,medium,,Son 1 Yıl
+SBA,Sabancı Topluluğu Şirketleri Endeksi Fonu,BES,medium,,Son 1 Yıl
+KML,Kıymetli Madenler Fonu,BES,low,,Son 1 Yıl
+EAE,Altın Fonu,BES,low,,Son 1 Yıl
+EHK,Katılım Hisse Senedi Fonu,BES,high,,Son 1 Yıl
+FYL,Katılım Katkı EYF,BES,medium,40.77,Son 1 Yıl
+FYN,Katılım Stand. EYF,BES,medium,41.18,Son 1 Yıl
+GEV,Altın Katılım EYF,BES,high,98.62,Son 1 Yıl
+AHU,Başlangıç EYF,OKS,low,53.35,Son 1 Yıl
+AJO,OKS Stand. EYF,OKS,medium,33.44,Son 1 Yıl
+WM,OKS Muhaf. Değ. EYF,OKS,medium,48.41,Son 1 Yıl
+WE,OKS Den. Değ. EYF,OKS,medium,42.09,Son 1 Yıl
+WD,OKS Din. Değ. EYF,OKS,medium,37.52,Son 1 Yıl
+WA,OKS Agr. Değ. EYF,OKS,medium,28.18,Son 1 Yıl
+AVJ,Başlangıç Katılım EYF,OKS,low,49.54,Son 1 Yıl
+AYJ,OKS Katılım Stand. EYF,OKS,medium,36.32,Son 1 Yıl
+WU,OKS Din. Katılım Değ. EYF,OKS,medium,48.7,Son 1 Yıl
+WZ,OKS Agr. Katılım Değ. EYF,OKS,medium,50.24,Son 1 Yıl

@@ -1,0 +1,140 @@
+option_id,question_id,option_text,option_order
+O00001,Q0001,Market alışverişi,1
+O00002,Q0001,Toplu taşıma,2
+O00003,Q0001,Yeni bir dijital abonelik,3
+O00004,Q0001,Ev kirası,4
+O00005,Q0002,Doğru,1
+O00006,Q0002,Yanlış,2
+O00007,Q0003,Harcamaları hiç takip etmemek,1
+O00008,Q0003,Zorunlu giderleri ve geliri görmek,2
+O00009,Q0003,Sadece keyfi harcamaları artırmak,3
+O00010,Q0004,Bir hafta harcamaları kategori bazında yazmak,1
+O00011,Q0004,Hiçbir şey yapmamak,2
+O00012,Q0004,Yeni abonelik almak,3
+O00013,Q0005,Konser bileti,1
+O00014,Q0005,Abonelik yenileme,2
+O00015,Q0005,Temel gıda alışverişi,3
+O00016,Q0005,Oyun içi satın alma,4
+O00017,Q0006,Gerçekçi ve ölçülebilir hedef,1
+O00018,Q0006,Belirsiz hedef,2
+O00019,Q0006,Sadece büyük hedef,3
+O00020,Q0007,Doğru,1
+O00021,Q0007,Yanlış,2
+O00022,Q0008,Ay başında otomatik ayırmak,1
+O00023,Q0008,Ay sonunda artarsa ayırmak,2
+O00024,Q0008,Sadece canım isterse ayırmak,3
+O00025,Q0009,Dışarıda kahve,1
+O00026,Q0009,Abonelik ödemesi,2
+O00027,Q0009,Anlık taksi,3
+O00028,Q0009,Oyun içi satın alma,4
+O00029,Q0010,Doğru,1
+O00030,Q0010,Yanlış,2
+O00031,Q0011,Harcamaları hiç yazmamak,1
+O00032,Q0011,Harcamaları 1 hafta boyunca kaydetmek,2
+O00033,Q0011,Sadece gelir artırmaya odaklanmak,3
+O00034,Q0012,Doğru,1
+O00035,Q0012,Yanlış,2
+O00036,Q0013,Listeyle market alışverişi,1
+O00037,Q0013,İndirim var diye ihtiyaç dışı alışveriş,2
+O00038,Q0013,Toplu taşımayı kullanmak,3
+O00039,Q0014,Haftasonu için harcama limiti belirlemek,1
+O00040,Q0014,Limiti kaldırmak,2
+O00041,Q0014,Hiç bakmamak,3
+O00042,Q0015,İlaç,1
+O00043,Q0015,Simit,2
+O00044,Q0015,Yeni oyun paketi,3
+O00045,Q0015,Temel ulaşım,4
+O00046,Q0016,Doğru,1
+O00047,Q0016,Yanlış,2
+O00048,Q0017,Kullandıklarını tutup kullanmadıklarını iptal etmek,1
+O00049,Q0017,Hepsini artırmak,2
+O00050,Q0017,Hiç kontrol etmemek,3
+O00051,Q0018,Haftada 1 gün kahve almamak,1
+O00052,Q0018,Her gün daha pahalı kahve,2
+O00053,Q0018,Kahveyi takip etmemek,3
+O00054,Q0019,Harcamayı gizlemek,1
+O00055,Q0019,Hangi alanın öne çıktığını görmek,2
+O00056,Q0019,Harcamayı artırmak,3
+O00057,Q0020,Doğru,1
+O00058,Q0020,Yanlış,2
+O00059,Q0021,Eğlence harcamasını artırmak,1
+O00060,Q0021,Beklenmedik giderlere hazırlık,2
+O00061,Q0021,Borcu artırmak,3
+O00062,Q0022,Doğru,1
+O00063,Q0022,Yanlış,2
+O00064,Q0023,Belirsiz hedef,1
+O00065,Q0023,Tutar + zaman içeren hedef,2
+O00066,Q0023,Sadece hayal kurmak,3
+O00067,Q0024,Ay başında otomatik ayırmak,1
+O00068,Q0024,Ay sonunda kalırsa ayırmak,2
+O00069,Q0024,Sadece bazı aylar ayırmak,3
+O00070,Q0025,Emeklilik birikimi,1
+O00071,Q0025,3 ay içinde laptop için birikim,2
+O00072,Q0025,20 yıl sonraya yatırım,3
+O00073,Q0026,Doğru,1
+O00074,Q0026,Yanlış,2
+O00075,Q0027,Harcamaları hiç izlememek,1
+O00076,Q0027,Mikro tasarruf görevleri belirlemek,2
+O00077,Q0027,Daha çok abonelik,3
+O00078,Q0028,Acil durum fonundan karşılamak,1
+O00079,Q0028,Hepsini keyfi harcamadan kısmadan ödemek,2
+O00080,Q0028,Hiç plan yapmamak,3
+O00081,Q0029,Birikimi rastgele yapmak,1
+O00082,Q0029,Belirli aralıklarla sistemli ayırmak,2
+O00083,Q0029,Sadece yıl sonunda biriktirmek,3
+O00084,Q0030,Doğru,1
+O00085,Q0030,Yanlış,2
+O00086,Q0031,Fiyatların genel seviyesinin artması,1
+O00087,Q0031,Paranın her zaman değer kazanması,2
+O00088,Q0031,Harcamaların sıfırlanması,3
+O00089,Q0032,Doğru,1
+O00090,Q0032,Yanlış,2
+O00091,Q0033,Getiri enflasyonun altında kalsın,1
+O00092,Q0033,Getiri enflasyonun üzerinde olsun,2
+O00093,Q0033,Enflasyonu yok say,3
+O00094,Q0034,Enflasyon,1
+O00095,Q0034,Seviye sistemi,2
+O00096,Q0034,Rozet,3
+O00097,Q0035,Paranın zaman içinde artması,1
+O00098,Q0035,Paranın her zaman azalması,2
+O00099,Q0035,Paranın taşınması,3
+O00100,Q0036,Doğru,1
+O00101,Q0036,Yanlış,2
+O00102,Q0037,Parayı hiç değerlendirmeden uzun süre tutmak,1
+O00103,Q0037,Bütçe yapmak,2
+O00104,Q0037,Hedef belirlemek,3
+O00105,Q0038,Düzenli birikim + uzun vade,1
+O00106,Q0038,Sadece ara sıra birikim,2
+O00107,Q0038,Hiç birikim yapmamak,3
+O00108,Q0039,Enflasyon,1
+O00109,Q0039,Oyun puanı,2
+O00110,Q0039,Liderlik tablosu,3
+O00111,Q0040,Doğru,1
+O00112,Q0040,Yanlış,2
+O00113,Q0041,Kısa vadede anlık harcamayı artırmak,1
+O00114,Q0041,Uzun vadeli birikimi desteklemek,2
+O00115,Q0041,Harcamaları sınırsız yapmak,3
+O00116,Q0042,Doğru,1
+O00117,Q0042,Yanlış,2
+O00118,Q0043,Zamana yaymak,1
+O00119,Q0043,Sadece bir kere yatırmak,2
+O00120,Q0043,Hiç yatırım yapmamak,3
+O00121,Q0044,Bileşik etkiyle birikimin büyümesi,1
+O00122,Q0044,Bütçe takibinin gereksiz olması,2
+O00123,Q0044,Harcamaların artması,3
+O00124,Q0045,Haftasonu etkinliği,1
+O00125,Q0045,Emeklilik için birikim,2
+O00126,Q0045,Bugün kahve,3
+O00127,Q0046,Doğru,1
+O00128,Q0046,Yanlış,2
+O00129,Q0047,Kişinin risk almaya yaklaşımı,1
+O00130,Q0047,Kişinin yaşı,2
+O00131,Q0047,Kişinin öğrenci olması,3
+O00132,Q0048,"Erken başlamak, toplam birikimi artırabilir",1
+O00133,Q0048,Hiçbir fark olmaz,2
+O00134,Q0048,Birikim kesin azalır,3
+O00135,Q0049,Dalgalanmaları zamanla dengeleyebilir,1
+O00136,Q0049,Her zaman anında kazanç,2
+O00137,Q0049,Hiçbir fayda,3
+O00138,Q0050,Doğru,1
+O00139,Q0050,Yanlış,2
