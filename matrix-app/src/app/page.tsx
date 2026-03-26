@@ -85,17 +85,7 @@ export default function LandingPage() {
         <button
           id="change-fate-btn"
           onClick={handleEnterMatrix}
-          className="
-            group relative px-12 py-5
-            border-2 border-green-500
-            text-green-400 font-mono font-bold
-            text-xl tracking-[0.3em] uppercase
-            transition-all duration-300
-            hover:bg-green-500 hover:text-black
-            hover:shadow-[0_0_40px_#00FF9C,0_0_80px_#00FF9C44]
-            focus:outline-none
-            overflow-hidden
-          "
+          className="group relative px-12 py-5 border-2 border-green-500 text-green-400 font-mono font-bold text-xl tracking-[0.3em] uppercase transition-all duration-300 hover:bg-green-500 hover:text-black hover:shadow-[0_0_40px_#00FF9C,0_0_80px_#00FF9C44] focus:outline-none overflow-hidden"
         >
           {/* Tarama efekti */}
           <span className="absolute inset-0 -translate-x-full group-hover:translate-x-0 bg-green-500 transition-transform duration-300 z-0" />
