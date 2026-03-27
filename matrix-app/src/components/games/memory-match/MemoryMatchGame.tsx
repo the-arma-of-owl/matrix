@@ -102,6 +102,7 @@ export function MemoryMatchGame() {
   const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [matches, setMatches] = useState(0);
+  const [score, setScore] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
   const [gameState, setGameState] = useState<'menu' | 'playing' | 'won'>('menu');
 
@@ -126,6 +127,7 @@ export function MemoryMatchGame() {
     setFlippedIndices([]);
     setMoves(0);
     setMatches(0);
+    setScore(0);
     setIsLocked(false);
     setGameState('playing');
   };
@@ -159,6 +161,7 @@ export function MemoryMatchGame() {
             }
             return m + 1;
           });
+          setScore(s => s + 100);
         }, 500);
       } else {
         setTimeout(() => {
@@ -168,6 +171,7 @@ export function MemoryMatchGame() {
           setCards(resetCards);
           setFlippedIndices([]);
           setIsLocked(false);
+          setScore(s => Math.max(0, s - 10)); // Yanlış hamle cezası
         }, 1000);
       }
     }
@@ -196,12 +200,18 @@ export function MemoryMatchGame() {
         {/* Header HUD */}
         <div className="flex justify-between items-center mb-8 px-6 py-4 bg-black/60 backdrop-blur-md rounded-xl border border-green-500/40 shadow-[0_0_20px_rgba(34,197,94,0.2)]">
           <div className="flex flex-col">
-            <span className="text-xs font-bold tracking-widest text-green-500 uppercase">Ağ Eşleşmesi</span>
-            <span className="text-3xl font-black text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]">{matches} <span className="text-lg text-green-800">/ {BES_CARDS_DATA.length}</span></span>
+            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-green-500 uppercase">Ağ Eşleşmesi</span>
+            <span className="text-xl sm:text-3xl font-black text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]">{matches} <span className="text-sm sm:text-lg text-green-800">/ 8</span></span>
           </div>
+          
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] sm:text-xs font-bold tracking-[0.2em] text-cyan-400 uppercase drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] animate-pulse">Skor Puanı</span>
+            <span className="text-2xl sm:text-4xl font-black text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,1)]">{score}</span>
+          </div>
+
           <div className="flex flex-col items-end">
-            <span className="text-xs font-bold tracking-widest text-green-500 uppercase">Sistem Hamlesi</span>
-            <span className="text-3xl font-black text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]">{moves}</span>
+            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-green-500 uppercase">Sistem Hamlesi</span>
+            <span className="text-xl sm:text-3xl font-black text-green-400 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]">{moves}</span>
           </div>
         </div>
 
@@ -274,7 +284,20 @@ export function MemoryMatchGame() {
           <div className={`flex flex-col items-center bg-black/80 p-8 rounded-2xl shadow-[0_0_40px_rgba(34,197,94,0.4)] border-2 border-green-400 max-w-sm w-[90%] transform transition-transform duration-700 delay-300 ${gameState === 'won' ? 'translate-y-0 scale-100' : 'translate-y-20 scale-90'}`}>
              <div className="text-6xl mb-4 animate-[pulse_2s_infinite]">💻</div>
              <h2 className="text-3xl font-black text-green-400 mb-2 tracking-widest uppercase origin-bottom drop-shadow-[0_0_10px_rgba(34,197,94,0.8)]">Sistem Kırıldı!</h2>
-             <p className="text-gray-300 font-medium mb-6 text-center">Tüm veritabanını <strong className="text-green-400">{moves}</strong> hamlede eşleştirdin.</p>
+             
+             <div className="bg-black/50 border border-green-500/50 rounded-lg p-4 w-full mb-6">
+                 <div className="flex justify-between items-center mb-2">
+                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Ağ Taraması</span>
+                     <span className="text-green-500 font-bold">{moves} Hamle</span>
+                 </div>
+                 <hr className="border-green-900 my-2" />
+                 <div className="flex justify-between items-center">
+                     <span className="text-green-400 font-black uppercase tracking-widest">Sızıntı Skoru</span>
+                     <span className="text-3xl text-green-400 font-black drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]">
+                         {score} <span className="text-sm">PTS</span>
+                     </span>
+                 </div>
+             </div>
              <button 
                 onClick={initGame}
                 className="w-full py-4 bg-black border-2 border-green-500 hover:bg-green-500 hover:text-black text-green-400 font-bold text-lg rounded-xl shadow-[0_0_15px_rgba(34,197,94,0.4)] hover:shadow-[0_0_25px_rgba(34,197,94,0.8)] transition-all active:scale-95 uppercase tracking-widest"
