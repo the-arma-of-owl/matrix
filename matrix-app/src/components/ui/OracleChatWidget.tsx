@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 // ngrok tüneli üzerinden erişilen RAG backend
-const RAG_BASE = 'https://uncalcined-gavyn-interspheral.ngrok-free.de';
+const RAG_BASE = 'https://uncalcined-gavyn-interspheral.ngrok-free.dev';
 
 // ngrok free tier için gerekli ortak header'lar
 const NGROK_HEADERS = {
