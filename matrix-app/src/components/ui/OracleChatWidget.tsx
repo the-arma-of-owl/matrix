@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 
-// Arkadaşın FastAPI'sinin çalıştığı adres (hackathonda localhost:8000)
-const RAG_BASE = 'http://localhost:8000';
+// Arkadaşın FastAPI'sinin çalıştığı adres
+const RAG_BASE = 'http://10.192.150.250:8000';
 
 // Bağlantı kontrolü — 3 sn timeout
 async function checkHealth(): Promise<boolean> {
