@@ -2,15 +2,21 @@
 
 import { useState, useRef, useEffect } from 'react';
 
-// Arkadaşın FastAPI'sinin çalıştığı adres
-const RAG_BASE = 'http://10.192.150.250:8000';
+// ngrok tüneli üzerinden erişilen RAG backend
+const RAG_BASE = 'https://uncalcined-gavyn-interspheral.ngrok-free.dev';
+
+// ngrok free tier için gerekli ortak header'lar
+const NGROK_HEADERS = {
+  'Content-Type': 'application/json',
+  'ngrok-skip-browser-warning': 'true',
+};
 
 // Bağlantı kontrolü — 3 sn timeout
 async function checkHealth(): Promise<boolean> {
   try {
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 3000);
-    const r = await fetch(`${RAG_BASE}/health`, { signal: ctrl.signal });
+    const r = await fetch(`${RAG_BASE}/health`, { signal: ctrl.signal, headers: NGROK_HEADERS });
     clearTimeout(t);
     return r.ok;
   } catch {
@@ -66,7 +72,7 @@ export default function OracleChatWidget() {
       // 1️⃣ POST /ask → task_id al
       const askRes = await fetch(`${RAG_BASE}/ask`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: NGROK_HEADERS,
         body: JSON.stringify({ query: q }),
       });
 
@@ -82,7 +88,7 @@ export default function OracleChatWidget() {
           return;
         }
 
-        const res = await fetch(`${RAG_BASE}/result/${task_id}`);
+        const res = await fetch(`${RAG_BASE}/result/${task_id}`, { headers: NGROK_HEADERS });
         const data = await res.json();
 
         if (data.status === 'completed') {
