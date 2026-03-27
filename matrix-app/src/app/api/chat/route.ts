@@ -1,25 +1,30 @@
 import { NextResponse } from 'next/server';
 
+/**
+ * Bu route artık opsiyonel.
+ * OracleChatWidget, RAG API'sine (http://localhost:8000) doğrudan bağlanır.
+ *
+ * Eğer localhost:8000 kapalıyken bile çalışmasını istersen buraya fallback yazabilirsin.
+ */
 export async function POST(request: Request) {
   try {
     const { message } = await request.json();
 
-    /* 
-      RAG AI GELİŞTİRİCİSİ İÇİN: 
-      Eğer front-end widgetından Next.js API'sine istek gelirse, bunu senin 
-      arka planda çalışan localhost AI'ına proxy (köprü) olarak atabilirsin.
-      (ÖRN: http://127.0.0.1:8000/ask)
-      Veya direkt Next.js üzerinden LangChain.js kurup RAG'ı burada da yapabilirsin!
-    */
+    // Doğrudan RAG backend'e proxy
+    const askRes = await fetch('http://localhost:8000/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: message }),
+    });
 
-    // ŞİMDİLİK MOCK (Sahte) CEVAP:
-    let reply = "Kelimlerinin anlamı Matrix'in içinde kayboldu. Tekrar et.";
-    if (message.toLowerCase().includes("bes")) {
-        reply = "BES seni kurtarabilir, ancak Doom Spending seni boğuyor.";
+    if (!askRes.ok) {
+      return NextResponse.json({ reply: 'Oracle bağlantısı kurulamadı.' }, { status: 502 });
     }
 
-    return NextResponse.json({ reply });
-  } catch (error) {
-    return NextResponse.json({ error: 'System Failure' }, { status: 500 });
+    const { task_id } = await askRes.json();
+    return NextResponse.json({ task_id });
+
+  } catch {
+    return NextResponse.json({ reply: 'Sistem hatası.' }, { status: 500 });
   }
 }

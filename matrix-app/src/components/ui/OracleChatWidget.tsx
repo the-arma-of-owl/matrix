@@ -1,82 +1,212 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useRef, useEffect } from 'react';
+
+// Arkadaşın FastAPI'sinin çalıştığı adres
+const RAG_BASE = 'http://localhost:8000';
+const POLL_INTERVAL = 1500; // ms — her 1.5 sn sonucu kontrol et
+const MAX_POLLS = 20;       // maks 30 sn bekle
+
+type Message = {
+  role: 'user' | 'oracle';
+  text: string;
+  loading?: boolean;
+};
 
 export default function OracleChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{role: 'user'|'oracle', text: string}[]>([
-      {role: 'oracle', text: 'Sistemde bir açık var. Yardıma ihtiyacın var mı?'}
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'oracle', text: 'Sistem hazır. BES, harcama alışkanlıkların veya yatırım senaryoları hakkında sorularını yaz.' },
   ]);
   const [input, setInput] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
+  // Yeni mesaj gelince otomatik aşağı kaydır
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // ── Mesaj gönder ──
   const sendMessage = async () => {
-      if(!input) return;
-      
-      const userMsg = input;
-      setMessages(prev => [...prev, {role: 'user', text: userMsg}]);
-      setInput('');
+    const q = input.trim();
+    if (!q || isSending) return;
 
-      try {
-          // AI GELİŞTİRİCİSİ İÇİN: Kendi localhost backend API endpointini buraya gir
-          const response = await fetch('/api/chat', { // Veya kendi fastApi'n => "http://localhost:8000/chat"
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ message: userMsg })
-          });
-          
-          if(response.ok) {
-            const data = await response.json();
-            setMessages(prev => [...prev, {role: 'oracle', text: data.reply}]);
-          } else {
-             setMessages(prev => [...prev, {role: 'oracle', text: 'Bağlantı kesildi...'}]);
-          }
-      } catch (error) {
-          console.error(error);
-          setMessages(prev => [...prev, {role: 'oracle', text: 'Oracle\'a ulaşılamıyor (Ajan engellemesi).'}]);
-      }
+    setInput('');
+    setIsSending(true);
+
+    // Kullanıcı mesajını ekle
+    setMessages(prev => [...prev, { role: 'user', text: q }]);
+
+    // Yükleniyor placeholder
+    const loadingId = Date.now();
+    setMessages(prev => [...prev, { role: 'oracle', text: '...', loading: true }]);
+
+    try {
+      // 1️⃣ POST /ask → task_id al
+      const askRes = await fetch(`${RAG_BASE}/ask`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: q }),
+      });
+
+      if (!askRes.ok) throw new Error(`HTTP ${askRes.status}`);
+      const { task_id } = await askRes.json();
+
+      // 2️⃣ GET /result/{task_id} polling
+      let polls = 0;
+      const poll = async (): Promise<void> => {
+        if (polls++ > MAX_POLLS) {
+          replaceLoading('Oracle yanıt vermedi. Tekrar dene.');
+          setIsSending(false);
+          return;
+        }
+
+        const res = await fetch(`${RAG_BASE}/result/${task_id}`);
+        const data = await res.json();
+
+        if (data.status === 'completed') {
+          const answer = data.result ?? data.answer ?? JSON.stringify(data);
+          replaceLoading(answer);
+          setIsSending(false);
+        } else if (data.status === 'failed') {
+          replaceLoading('Oracle bir hatayla karşılaştı: ' + (data.error ?? 'bilinmeyen hata'));
+          setIsSending(false);
+        } else {
+          // pending | processing → tekrar polling
+          setTimeout(poll, POLL_INTERVAL);
+        }
+      };
+
+      setTimeout(poll, POLL_INTERVAL);
+
+    } catch (err) {
+      replaceLoading('Oracle bağlantısı kurulamadı. Arka uç çalışıyor mu? (localhost:8000)');
+      setIsSending(false);
+    }
+  };
+
+  // Yükleniyor mesajını gerçek cevapla değiştir
+  const replaceLoading = (text: string) => {
+    setMessages(prev => {
+      const idx = [...prev].reverse().findIndex(m => m.loading);
+      if (idx === -1) return [...prev, { role: 'oracle', text }];
+      const copy = [...prev];
+      copy[copy.length - 1 - idx] = { role: 'oracle', text };
+      return copy;
+    });
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      
-      {/* Sohbet Kutusu Kapatılıp Açılabilir */}
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end" style={{ fontFamily: "'Share Tech Mono', monospace" }}>
+
+      {/* ── Sohbet Penceresi ── */}
       {isOpen && (
-        <div className="bg-black/90 border border-green-500/50 shadow-[0_0_15px_rgba(0,255,156,0.2)] w-80 h-96 mb-4 flex flex-col font-mono text-sm backdrop-blur-sm">
-          <div className="bg-green-900/40 text-green-400 p-3 border-b border-green-800 font-bold uppercase">
-             {'>'} Oracle.exe
-          </div>
-          
-          <div className="flex-1 p-3 overflow-y-auto w-full flex flex-col gap-3">
-             {messages.map((msg, idx) => (
-                 <div key={idx} className={`w-full flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] p-2 rounded-sm ${msg.role === 'user' ? 'bg-green-800 text-white' : 'bg-gray-900 border-l-2 border-green-500 text-green-400'}`}>
-                        {msg.text}
-                    </div>
-                 </div>
-             ))}
+        <div style={{
+          width: 340, height: 460, marginBottom: 12,
+          background: 'rgba(2,14,6,0.97)',
+          border: '1px solid rgba(0,255,65,0.35)',
+          boxShadow: '0 0 30px rgba(0,255,65,0.12)',
+          display: 'flex', flexDirection: 'column',
+          position: 'relative', overflow: 'hidden',
+        }}>
+          {/* Tarama çizgisi */}
+          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
+            backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.05) 2px,rgba(0,0,0,0.05) 4px)' }} />
+
+          {/* Başlık */}
+          <div style={{ padding: '10px 14px', borderBottom: '1px solid rgba(0,255,65,0.2)',
+            background: 'rgba(0,255,65,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 1 }}>
+            <span style={{ color: '#00ff41', fontSize: '0.68rem', letterSpacing: '0.2em' }}>
+              {'>'} ORACLE // RAG ENGINE
+            </span>
+            <button onClick={() => setIsOpen(false)}
+              style={{ background: 'none', border: 'none', color: 'rgba(0,255,65,0.4)', cursor: 'pointer', fontSize: '0.75rem' }}>
+              ✕
+            </button>
           </div>
 
-          <div className="p-2 border-t border-green-800/50 flex">
-             <input 
-                type="text" 
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                className="flex-1 bg-transparent border-none text-green-400 placeholder-green-800 outline-none px-2"
-                placeholder="Yaz Neo..." 
-             />
-             <button onClick={sendMessage} className="text-green-500 font-bold hover:text-green-400">{'>>'}</button>
+          {/* Mesajlar */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '12px', display: 'flex', flexDirection: 'column', gap: 10, zIndex: 1 }}>
+            {messages.map((msg, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                <div style={{
+                  maxWidth: '82%',
+                  padding: '8px 10px',
+                  fontSize: '0.72rem',
+                  lineHeight: 1.6,
+                  letterSpacing: '0.03em',
+                  ...(msg.role === 'user'
+                    ? { background: 'rgba(0,255,65,0.12)', color: '#00ff41', borderLeft: '2px solid #00ff41' }
+                    : { background: 'rgba(0,0,0,0.4)', color: msg.loading ? 'rgba(0,255,65,0.4)' : 'rgba(0,255,65,0.85)', borderLeft: '2px solid rgba(0,255,65,0.3)' }
+                  )
+                }}>
+                  {msg.loading ? <BlinkDots /> : msg.text}
+                </div>
+              </div>
+            ))}
+            <div ref={bottomRef} />
+          </div>
+
+          {/* Input */}
+          <div style={{ padding: '8px 12px', borderTop: '1px solid rgba(0,255,65,0.15)', display: 'flex', gap: 8, zIndex: 1, background: 'rgba(0,0,0,0.3)' }}>
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && sendMessage()}
+              placeholder={isSending ? 'Oracle düşünüyor...' : 'Soruyu yaz...'}
+              disabled={isSending}
+              style={{
+                flex: 1, background: 'transparent', border: 'none', outline: 'none',
+                color: '#00ff41', fontFamily: "'Share Tech Mono', monospace", fontSize: '0.72rem',
+                letterSpacing: '0.04em',
+              }}
+            />
+            <button onClick={sendMessage} disabled={isSending}
+              style={{ background: 'none', border: 'none', color: isSending ? 'rgba(0,255,65,0.3)' : '#00ff41', cursor: isSending ? 'default' : 'pointer', fontSize: '0.85rem' }}>
+              {isSending ? '⏳' : '▶'}
+            </button>
           </div>
         </div>
       )}
 
-      {/* Yuvarlak Açma Butonu */}
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-green-900 rounded-full border-2 border-green-500 text-green-400 flex items-center justify-center text-xs shadow-[0_0_15px_#00FF9C] hover:scale-110 transition-transform font-bold"
+      {/* ── Açma Butonu ── */}
+      <button
+        onClick={() => setIsOpen(o => !o)}
+        style={{
+          width: 52, height: 52, borderRadius: '50%',
+          background: isOpen ? 'rgba(0,255,65,0.15)' : 'rgba(0,20,8,0.95)',
+          border: '2px solid #00ff41',
+          color: '#00ff41',
+          fontFamily: "'Orbitron', monospace",
+          fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.05em',
+          cursor: 'pointer',
+          boxShadow: '0 0 16px rgba(0,255,65,0.35)',
+          transition: 'all 0.2s',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}
+        title="Oracle AI (RAG)"
       >
-        O
+        {isOpen ? '✕' : 'AI'}
       </button>
 
     </div>
+  );
+}
+
+// Yükleniyor animasyonu
+function BlinkDots() {
+  return (
+    <span style={{ display: 'inline-flex', gap: 4, alignItems: 'center' }}>
+      {[0, 1, 2].map(i => (
+        <span key={i} style={{
+          width: 5, height: 5, borderRadius: '50%', background: '#00ff41',
+          display: 'inline-block',
+          animation: `blink 1.2s ${i * 0.2}s ease-in-out infinite`,
+        }} />
+      ))}
+      <style>{`@keyframes blink { 0%,100%{opacity:0.2} 50%{opacity:1} }`}</style>
+    </span>
   );
 }
