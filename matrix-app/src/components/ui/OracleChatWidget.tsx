@@ -73,7 +73,7 @@ export default function OracleChatWidget() {
       const askRes = await fetch(`${RAG_BASE}/ask`, {
         method: 'POST',
         headers: NGROK_HEADERS,
-        body: JSON.stringify({ query: q }),
+        body: JSON.stringify({ query: q, question: q }),
       });
 
       if (!askRes.ok) throw new Error(`HTTP ${askRes.status}`);
@@ -92,7 +92,12 @@ export default function OracleChatWidget() {
         const data = await res.json();
 
         if (data.status === 'completed') {
-          const answer = data.result ?? data.answer ?? JSON.stringify(data);
+          // API: {status, result: {answer, sources, context_used}} veya direkt {answer}
+          const result = data.result ?? data;
+          const answer: string =
+            (typeof result === 'object' ? result.answer : null) ??
+            (typeof data.answer === 'string' ? data.answer : null) ??
+            (typeof result === 'string' ? result : JSON.stringify(result));
           replaceLoading(answer);
           setIsSending(false);
         } else if (data.status === 'failed') {
