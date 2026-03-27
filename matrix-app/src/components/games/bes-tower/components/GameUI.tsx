@@ -62,7 +62,7 @@ export function GameUI({
                 <div className="text-right">
                     <div className="text-[10px] font-bold text-green-600 tracking-widest uppercase">FON HACMİ</div>
                     <div className="text-3xl sm:text-4xl font-black text-green-400 drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] leading-none mt-1">
-                        {score} <span className="text-sm text-green-800">TB</span>
+                        {score} <span className="text-sm text-green-800">TL</span>
                     </div>
                 </div>
             </div>
@@ -71,24 +71,28 @@ export function GameUI({
 
             {/* Main Menu overlay */}
             {gameState === GAME_STATES.MENU && (
-                <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col justify-center items-center p-8 pointer-events-auto">
+                <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col justify-center items-center p-8 pointer-events-auto overflow-y-auto">
                     <h1 className="text-5xl sm:text-6xl font-black mb-2 text-green-500 text-center tracking-widest drop-shadow-[0_0_20px_rgba(34,197,94,0.8)]">
                         BES TOWER
                     </h1>
-                    <h2 className="text-lg text-green-700 mb-8 font-bold tracking-[0.3em] uppercase">Sistem Bağlantısı</h2>
+                    <h2 className="text-lg text-green-700 mb-6 font-bold tracking-[0.3em] uppercase">Simülasyona Hoş Geldin</h2>
                     
-                    <div className="flex flex-col gap-4 mb-10 bg-black/60 p-6 rounded-lg border border-green-500/30 max-w-sm w-full shadow-[inset_0_0_30px_rgba(34,197,94,0.1)]">
+                    <div className="flex flex-col gap-3 mb-8 bg-black/60 p-5 rounded-lg border border-green-500/30 w-full max-w-md shadow-[inset_0_0_30px_rgba(34,197,94,0.1)]">
                         <div className="flex items-center gap-4">
-                            <div className="w-5 h-5 rounded-sm bg-green-500/20 border border-green-400 shrink-0 shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
-                            <p className="text-xs text-green-600 tracking-wide"><strong className="text-green-400">Yatırım Datası:</strong> Seçimini artırır, kuleyi yükseltir.</p>
+                            <div className="w-5 h-5 rounded-sm bg-blue-500 border border-blue-400 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                            <p className="text-xs text-green-500 tracking-wide leading-relaxed"><strong className="text-blue-400">YATIRIM:</strong> Fon hacmini (+1) büyütür ve kulenizi istikrarlı şekilde yükseltir.</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="w-5 h-5 rounded-sm bg-green-600/40 border border-green-500 shrink-0 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-                            <p className="text-xs text-green-600 tracking-wide"><strong className="text-green-400">Sistem Takviyesi:</strong> Bataryayı doldurur, dengeyi daraltır.</p>
+                            <div className="w-5 h-5 rounded-sm bg-orange-500 border border-orange-400 shrink-0 shadow-[0_0_8px_rgba(249,115,22,0.5)]" />
+                            <p className="text-xs text-green-500 tracking-wide leading-relaxed"><strong className="text-orange-400">YEMEK:</strong> Beslenme (🍔) barını çok hızlı doldurur. Ancak dikkat! <span className="text-red-400">Sonraki gelen bloğun ebatını daraltır.</span></p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="w-5 h-5 rounded-sm bg-green-700/60 border border-green-600 shrink-0 shadow-[0_0_8px_rgba(22,163,74,0.5)]" />
-                            <p className="text-xs text-green-600 tracking-wide"><strong className="text-green-400">Ağ Güncellemesi:</strong> Sinyali güçlendirir ama frekansı sarsar.</p>
+                            <div className="w-5 h-5 rounded-sm bg-purple-500 border border-purple-400 shrink-0 shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+                            <p className="text-xs text-green-500 tracking-wide leading-relaxed"><strong className="text-purple-400">SOSYAL:</strong> Sosyal hayat (👥) barını tam doldurur. Ancak dikkat! <span className="text-red-400">Tüm kuleyi sarsarak dengeyi zorlar.</span></p>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <div className="w-5 h-5 rounded-sm bg-yellow-500 border border-yellow-400 shrink-0 shadow-[0_0_8px_rgba(234,179,8,0.5)]" />
+                            <p className="text-xs text-green-500 tracking-wide leading-relaxed"><strong className="text-yellow-400">%20 DEVLET:</strong> Fon hacmine havadan dev (+2) bonus katar. Sallanmaz, üstelik düşeceği <strong className="text-green-400">alanı daha geniştir!</strong></p>
                         </div>
                     </div>
 
@@ -114,8 +118,8 @@ export function GameUI({
                     </p>
 
                     <div className="text-center mb-10">
-                        <span className="text-[10px] text-green-700 uppercase tracking-widest font-bold">Kurtarılan Veri</span >
-                        <h2 className="text-5xl text-green-400 font-black mt-2 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)]">{score} <span className="text-lg">TB</span></h2>
+                        <span className="text-[10px] text-green-700 uppercase tracking-widest font-bold">Yapılan Yatırım</span >
+                        <h2 className="text-5xl text-green-400 font-black mt-2 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)]">{score} <span className="text-lg">TL</span></h2>
                     </div>
 
                     <button 

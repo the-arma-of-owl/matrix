@@ -18,11 +18,11 @@ const BES_CARDS_DATA = [
   },
   {
     id: 'state-contrib',
-    label: '%30 Devlet',
+    label: '%20 Devlet',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 mb-1 text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        <text x="12" y="15" fontSize="8" textAnchor="middle" fill="currentColor" strokeWidth="0" fontWeight="bold">%30</text>
+        <text x="12" y="15" fontSize="8" textAnchor="middle" fill="currentColor" strokeWidth="0" fontWeight="bold">%20</text>
       </svg>
     )
   },
