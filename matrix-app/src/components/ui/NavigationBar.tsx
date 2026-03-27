@@ -7,6 +7,7 @@ import { Home, BookOpen, Landmark, Gamepad2, User, Trophy, Sparkles } from 'luci
 const NAV_ITEMS = [
   { href: '/',            icon: Home,     label: 'Giriş'   },
   { href: '/dashboard',   icon: BookOpen, label: 'Eğitim'  },
+  { href: '/level1',      icon: BookOpen, label: 'Quiz'    },
   { href: '/games/bes-tower', icon: Landmark, label: 'BES' },
   { href: '/dashboard',   icon: Gamepad2, label: 'Oyunlar' },
   { href: '/leaderboard', icon: Trophy,   label: 'Sıralama'},

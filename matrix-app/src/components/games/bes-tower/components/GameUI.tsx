@@ -59,10 +59,15 @@ export function GameUI({
                     </div>
                 </div>
                 
-                <div className="text-right">
+                <div className="text-right flex flex-col items-end">
                     <div className="text-[10px] font-bold text-green-600 tracking-widest uppercase">FON HACMİ</div>
-                    <div className="text-3xl sm:text-4xl font-black text-green-400 drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] leading-none mt-1">
-                        {score} <span className="text-sm text-green-800">TL</span>
+                    <div className="text-2xl sm:text-3xl font-black text-green-400 drop-shadow-[0_0_15px_rgba(34,197,94,0.8)] leading-none mt-1">
+                        {score} <span className="text-xs text-green-800">Birim</span>
+                    </div>
+                    
+                    <div className="text-[10px] font-bold text-cyan-500 tracking-widest uppercase mt-3 animate-pulse">CANLI SKOR</div>
+                    <div className="text-xl sm:text-2xl font-black text-cyan-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)] leading-none mt-1">
+                        {score * 500} <span className="text-[10px] text-cyan-800">PTS</span>
                     </div>
                 </div>
             </div>
@@ -117,9 +122,18 @@ export function GameUI({
                         {gameOverReason}
                     </p>
 
-                    <div className="text-center mb-10">
-                        <span className="text-[10px] text-green-700 uppercase tracking-widest font-bold">Yapılan Yatırım</span >
-                        <h2 className="text-5xl text-green-400 font-black mt-2 drop-shadow-[0_0_15px_rgba(34,197,94,0.6)]">{score} <span className="text-lg">TL</span></h2>
+                    <div className="bg-black border flex flex-col items-center border-green-500/30 p-4 rounded mb-10 min-w-[200px] shadow-[inset_0_0_20px_rgba(34,197,94,0.1)]">
+                        <div className="text-center w-full mb-2">
+                            <span className="text-[10px] text-green-600 uppercase tracking-widest font-bold block mb-1">Yapılan Yatırım</span >
+                            <h2 className="text-3xl text-green-500 font-bold">{score} <span className="text-sm">Birim</span></h2>
+                        </div>
+                        <hr className="w-full border-green-900/50 my-2" />
+                        <div className="text-center w-full">
+                            <span className="text-xs text-green-400 uppercase tracking-widest font-black block mb-1">Performans Skoru</span >
+                            <h2 className="text-4xl text-green-300 font-black drop-shadow-[0_0_15px_rgba(34,197,94,0.8)]">
+                                {score * 500} <span className="text-lg">PTS</span>
+                            </h2>
+                        </div>
                     </div>
 
                     <button 
