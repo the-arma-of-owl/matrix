@@ -85,7 +85,7 @@ export function GameCanvas({ gameStateRef, onPlaceBlock }: GameCanvasProps) {
                         case 'investment': return 'YATIRIM';
                         case 'food': return 'YEMEK';
                         case 'social': return 'SOSYAL';
-                        case 'devlet': return '%30 DEVLET';
+                        case 'devlet': return '%20 DEVLET';
                         case 'base': return '';
                         default: return String(t).toUpperCase();
                     }
