@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { GameEngineState } from '../hooks/useGameEngine';
-import { LOGICAL_WIDTH, LOGICAL_HEIGHT, GAME_STATES, BLOCK_COLORS } from '../utils/config';
+import { LOGICAL_WIDTH, LOGICAL_HEIGHT, GAME_STATES, BLOCK_COLORS, BLOCK_TYPES } from '../utils/config';
 
 interface GameCanvasProps {
     gameStateRef: React.MutableRefObject<GameEngineState>;
@@ -66,16 +66,32 @@ export function GameCanvas({ gameStateRef, onPlaceBlock }: GameCanvasProps) {
                     return LOGICAL_HEIGHT - 100 - worldY + cy;
                 };
 
-                // Base line
-                ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-                ctx.lineWidth = 2;
+                // Base line (Matrix Ground)
+                ctx.strokeStyle = 'rgba(34,197,94,0.4)';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#22c55e';
+                ctx.shadowBlur = 10;
                 ctx.beginPath();
                 const baseY = getScreenY(0);
                 ctx.moveTo(0, baseY);
                 ctx.lineTo(LOGICAL_WIDTH, baseY);
                 ctx.stroke();
 
-                const drawBlock = (x: number, worldY: number, w: number, h: number, colors: any) => {
+                // Reset shadow for performance
+                ctx.shadowBlur = 0;
+
+                const getTypeName = (t: string) => {
+                    switch(String(t)) {
+                        case 'investment': return 'YATIRIM';
+                        case 'food': return 'YEMEK';
+                        case 'social': return 'SOSYAL';
+                        case 'devlet': return '%30 DEVLET';
+                        case 'base': return '';
+                        default: return String(t).toUpperCase();
+                    }
+                };
+
+                const drawBlock = (x: number, worldY: number, w: number, h: number, colors: any, text?: string) => {
                     const left = x - w / 2;
                     const top = getScreenY(worldY) - h;
                     
@@ -86,6 +102,9 @@ export function GameCanvas({ gameStateRef, onPlaceBlock }: GameCanvasProps) {
                     ctx.lineWidth = 4;
                     ctx.strokeStyle = colors.border || '#999';
                     
+                    ctx.shadowBlur = 0;
+                    ctx.shadowColor = 'transparent';
+
                     ctx.beginPath();
                     if (ctx.roundRect) {
                         ctx.roundRect(left, top, w, h, 8);
@@ -103,34 +122,46 @@ export function GameCanvas({ gameStateRef, onPlaceBlock }: GameCanvasProps) {
                         ctx.rect(left, top, w, h/2);
                     }
                     ctx.fill();
+
+                    if (text && text !== '') {
+                        ctx.font = '900 22px "Arial", sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        
+                        // Siyah Kalın Kontur (Stroke)
+                        ctx.lineWidth = 6;
+                        ctx.strokeStyle = '#000000';
+                        ctx.strokeText(text, x, top + h/2 + 2);
+                        
+                        // Beyaz Dolgu (Fill)
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillText(text, x, top + h/2 + 2);
+                    }
                 };
 
                 // draw rested
                 if (gameState.blocks && Array.isArray(gameState.blocks)) {
                     gameState.blocks.forEach((b) => {
-                        drawBlock(b.x, b.y, b.width, b.height, b.color);
+                        drawBlock(b.x, b.y, b.width, b.height, b.color, getTypeName(b.type));
                     });
                 }
 
-                // active block
+                // active block drop target line
                 if (gameState.gameState === GAME_STATES.PLAYING && gameState.activeBlock) {
                     const b = gameState.activeBlock;
-                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
-                    ctx.shadowBlur = 15;
-                    ctx.shadowOffsetY = 10;
-                    
                     const targetDrawY = getScreenY(b.y);
                     
-                    ctx.shadowColor = 'transparent';
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-                    ctx.setLineDash([5, 5]);
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([10, 10]);
                     ctx.beginPath();
                     ctx.moveTo(b.x, targetDrawY - b.height);
                     ctx.lineTo(b.x, baseY);
                     ctx.stroke();
                     ctx.setLineDash([]);
                     
-                    drawBlock(b.x, b.y, b.width, b.height, b.color);
+                    drawBlock(b.x, b.y, b.width, b.height, b.color, getTypeName(b.type));
                 }
 
                 ctx.restore();
