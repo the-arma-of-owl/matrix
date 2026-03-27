@@ -69,6 +69,19 @@ export default function LandingPage() {
     setIsPlaying(true);
   };
 
+  // ── Son Sahneye Atla (hap sahnesi) ──
+  // Video'nun son 3 saniyesine atlar, doğal olarak biter → hap butonları açılır
+  const handleSkipToEnd = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const dur = videoRef.current.duration;
+    if (isNaN(dur)) return;
+    videoRef.current.currentTime = Math.max(dur - 3, 0);
+    videoRef.current.play();
+    setVideoEnded(false);
+    setIsPlaying(true);
+  };
+
   const handleRedPill = () => router.push('/login');
   const handleBluePill = () => router.push('/login?pill=blue');
 
@@ -176,6 +189,20 @@ export default function LandingPage() {
             <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
           </svg>
           BAŞA SAR
+        </button>
+
+        <div className="w-px h-4 bg-green-900" />
+
+        {/* ⏭ Son Sahneye Atla */}
+        <button
+          onClick={handleSkipToEnd}
+          className="flex items-center gap-1 hover:text-yellow-400 text-yellow-600 transition-colors"
+          title="Hap seçim sahnesine atla"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/>
+          </svg>
+          SEÇIM SAHNESINE ATLA
         </button>
 
         <div className="w-px h-4 bg-green-900" />
