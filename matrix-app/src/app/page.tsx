@@ -5,16 +5,17 @@ import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioCtxRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   const [videoEnded, setVideoEnded] = useState(false);
-  const [volume, setVolume] = useState(100); // 0–150
-  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [volume, setVolume] = useState(100); // 0–300
   const [audioUnlocked, setAudioUnlocked] = useState(false);
+
   const router = useRouter();
 
-  // Web Audio API kurulumu — sesi %150'ye çıkarabilmek için GainNode
+  // ── Web Audio API kurulumu (ilk kullanıcı etkileşiminde) ──
   const setupAudio = useCallback(() => {
     if (audioUnlocked || !videoRef.current) return;
     try {
@@ -26,42 +27,55 @@ export default function LandingPage() {
       gain.connect(ctx.destination);
       audioCtxRef.current = ctx;
       gainNodeRef.current = gain;
+
+      // MediaElementSource bağlandıktan sonra video durabilir — hemen tekrar başlat
       videoRef.current.muted = false;
-      setIsMuted(false);
+      videoRef.current.play().catch(() => {});
+
       setAudioUnlocked(true);
+      setIsPlaying(true);
     } catch (e) {
-      console.warn('AudioContext kurulum hatası:', e);
+      console.warn('AudioContext hatası:', e);
     }
   }, [audioUnlocked, volume]);
 
-  // Ses seviyesi değişince GainNode'u güncelle
+  // ── Volume değişince GainNode'u güncelle ──
   useEffect(() => {
     if (gainNodeRef.current) {
       gainNodeRef.current.gain.value = volume / 100;
     }
-    if (videoRef.current && !audioUnlocked) {
-      videoRef.current.volume = Math.min(volume / 100, 1);
-    }
-  }, [volume, audioUnlocked]);
+  }, [volume]);
 
-  const handleRestart = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
+  // ── Oynat / Duraklat ──
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
       videoRef.current.play();
-      setVideoEnded(false);
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
-  // Kırmızı hap → login (sistemi hackle / BES yolculuğu)
-  const handleRedPill = () => router.push('/login');
+  // ── Başa Sar ──
+  const handleRestart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.currentTime = 0;
+    videoRef.current.play();
+    setVideoEnded(false);
+    setIsPlaying(true);
+  };
 
-  // Mavi hap → Cypher sahnesi (şimdilik de login, ileride farklı akış)
+  const handleRedPill = () => router.push('/login');
   const handleBluePill = () => router.push('/login?pill=blue');
 
   return (
     <div
       className="relative h-screen w-screen overflow-hidden bg-black"
-      onClick={setupAudio} // İlk tıklamada AudioContext unlock
+      onClick={setupAudio}
     >
       {/* ── TAM EKRAN VİDEO ── */}
       <video
@@ -70,34 +84,26 @@ export default function LandingPage() {
         autoPlay
         muted
         playsInline
-        onEnded={() => setVideoEnded(true)}
+        onEnded={() => { setVideoEnded(true); setIsPlaying(false); }}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
 
       {/* Hafif karartma */}
       <div className="absolute inset-0 z-10 bg-black/20 pointer-events-none" />
 
-      {/* ══════════════════════════════════════════════════
-          GÖRÜNMEZ HAP BUTONLARI — sadece video bitince aktif
-          Pozisyonlar: Sol el = kırmızı hap, Sağ el = mavi hap
-          (videodan alınan görsel referansa göre ayarlandı)
-      ══════════════════════════════════════════════════ */}
-
-      {/* KIRMIZI HAP — Sol el, orta-sol bölge */}
+      {/* ══════════════════════════════
+          KIRMIZI HAP — Sol el
+      ══════════════════════════ */}
       <button
         onClick={handleRedPill}
         title="Kırmızı Hap – Hakikati seç"
         className={`absolute z-30 rounded-full transition-all duration-700 ${
-          videoEnded
-            ? 'opacity-100 cursor-pointer'
-            : 'opacity-0 pointer-events-none'
+          videoEnded ? 'opacity-100 cursor-pointer' : 'opacity-0 pointer-events-none'
         }`}
         style={{
-          /* Sol avucun tam üzeri — ekranın %18-%38 yatay, %30-%70 dikey */
-          left: '18%',
-          top: '30%',
-          width: '20%',
-          height: '40%',
+          left: '18%', top: '30%', width: '20%', height: '40%',
           background: videoEnded
             ? 'radial-gradient(ellipse at center, rgba(255,0,0,0.18) 0%, transparent 70%)'
             : 'transparent',
@@ -111,21 +117,17 @@ export default function LandingPage() {
         )}
       </button>
 
-      {/* MAVİ HAP — Sağ el, orta-sağ bölge */}
+      {/* ══════════════════════════════
+          MAVİ HAP — Sağ el
+      ══════════════════════════ */}
       <button
         onClick={handleBluePill}
         title="Mavi Hap – Sisteme geri dön"
         className={`absolute z-30 rounded-full transition-all duration-700 ${
-          videoEnded
-            ? 'opacity-100 cursor-pointer'
-            : 'opacity-0 pointer-events-none'
+          videoEnded ? 'opacity-100 cursor-pointer' : 'opacity-0 pointer-events-none'
         }`}
         style={{
-          /* Sağ avucun tam üzeri — ekranın %57-%77 yatay, %30-%70 dikey */
-          left: '57%',
-          top: '30%',
-          width: '20%',
-          height: '40%',
+          left: '57%', top: '30%', width: '20%', height: '40%',
           background: videoEnded
             ? 'radial-gradient(ellipse at center, rgba(0,100,255,0.18) 0%, transparent 70%)'
             : 'transparent',
@@ -139,18 +141,36 @@ export default function LandingPage() {
         )}
       </button>
 
-      {/* ══════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════
           ALT KONTROL ÇUBUĞU
-          • Ses aç/kapat + %0–150 slider
-          • Videoyu başa sar
-      ══════════════════════════════════════════════════ */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center gap-4 px-5 py-2 bg-black/60 border border-green-900/60 backdrop-blur-sm rounded-sm font-mono text-xs text-green-600 select-none">
+      ══════════════════════════════════════════ */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center gap-4 px-5 py-2 bg-black/70 border border-green-900/60 backdrop-blur-sm font-mono text-xs text-green-600 select-none rounded-sm">
 
-        {/* Başa Sar */}
+        {/* ▶ / ⏸ Oynat-Duraklat */}
+        <button
+          onClick={togglePlay}
+          className="flex items-center gap-1 hover:text-green-400 transition-colors"
+          title={isPlaying ? 'Duraklat' : 'Oynat'}
+        >
+          {isPlaying ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M6 19h4V5H6zm8-14v14h4V5z"/>
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          )}
+          {isPlaying ? 'DURAKLAT' : 'OYNAT'}
+        </button>
+
+        <div className="w-px h-4 bg-green-900" />
+
+        {/* ⏮ Başa Sar */}
         <button
           onClick={handleRestart}
           className="flex items-center gap-1 hover:text-green-400 transition-colors"
-          title="Videoyu başa sar"
+          title="Başa sar"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
             <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
@@ -160,36 +180,35 @@ export default function LandingPage() {
 
         <div className="w-px h-4 bg-green-900" />
 
-        {/* Ses Aç */}
-        {!audioUnlocked && (
-          <button
-            onClick={(e) => { e.stopPropagation(); setupAudio(); }}
-            className="hover:text-green-400 transition-colors animate-pulse"
-          >
-            🔇 SES AÇ
-          </button>
-        )}
-
-        {/* Ses Slider — 0 ile 150 arası */}
+        {/* 🔊 Ses + Slider 0–300% */}
         <div className="flex items-center gap-2">
+          {!audioUnlocked && (
+            <button
+              onClick={(e) => { e.stopPropagation(); setupAudio(); }}
+              className="hover:text-green-400 text-yellow-600 animate-pulse mr-1"
+            >
+              🔇
+            </button>
+          )}
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
           </svg>
           <input
             type="range"
             min={0}
-            max={150}
+            max={300}
+            step={5}
             value={volume}
-            onChange={(e) => setVolume(Number(e.target.value))}
+            onChange={(e) => { e.stopPropagation(); setVolume(Number(e.target.value)); }}
             onClick={(e) => e.stopPropagation()}
-            className="w-24 accent-green-500 cursor-pointer"
-            title={`Ses: %${volume}`}
+            className="w-28 accent-green-500 cursor-pointer"
           />
-          <span className="w-8 text-right text-green-500">%{volume}</span>
+          <span className={`w-10 text-right font-bold ${volume > 100 ? 'text-yellow-400' : 'text-green-500'}`}>
+            %{volume}
+          </span>
         </div>
 
       </div>
-
     </div>
   );
 }
