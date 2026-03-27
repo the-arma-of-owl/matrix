@@ -112,7 +112,7 @@ export default function OracleChatWidget() {
       setTimeout(poll, POLL_INTERVAL);
 
     } catch (err) {
-      replaceLoading('Oracle bağlantısı kurulamadı. Arka uç çalışıyor mu? (localhost:8000)');
+      replaceLoading(`Oracle bağlantısı kurulamadı. Backend erişilemiyor: ${RAG_BASE}`);
       setIsSending(false);
     }
   };
@@ -172,7 +172,7 @@ export default function OracleChatWidget() {
                 <span style={{ color: 'rgba(255,100,100,0.6)', fontSize: '0.58rem' }}>
                   Sorumlu arkadaş: AgeSA-code-night-chatbot<br/>
                   reposunu <strong style={{color:'#ff8888'}}>./start.sh</strong> ile başlatmalı<br/>
-                  (localhost:8000 üzerinde)
+                  ({RAG_BASE})
                 </span>
               </div>
               <button onClick={() => checkHealth().then(ok => setIsOnline(ok))}
